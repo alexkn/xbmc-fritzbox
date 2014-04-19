@@ -39,7 +39,9 @@ def _(s):
         'duration: %sh': 31007,
         'fritzbox unreachable': 31008,
         'could not connect to fritzbox (%s).': 31009,
-        'unknown': 31010
+        'unknown': 31010,
+        'fritzbox connected': 31011,
+        'fritzbox phonebook failed': 31012
     }
     if s in translations:
         return __addon__.getLocalizedString(translations[s]) or s
@@ -61,29 +63,34 @@ class FritzCallMonitor():
 
         if __addon__.getSetting("AB_Fritzadress") == 'true':
             if self.__pytzbox is None:
+                username = False
                 password = False
+                if __addon__.getSetting("AB_FritzboxUsername") and len(
+                        str(__addon__.getSetting("AB_FritzboxUsername"))) > 0:
+                    username = __addon__.getSetting("AB_FritzboxUsername")
+                
                 if __addon__.getSetting("AB_FritzboxPassword") and len(
                         str(__addon__.getSetting("AB_FritzboxPassword"))) > 0:
                     password = __addon__.getSetting("AB_FritzboxPassword")
 
-                self.__pytzbox = PytzBox.PytzBox(password=password, host=__addon__.getSetting("S_IP"))
-
-                if password:
-                    self.__pytzbox.login()
+                self.__pytzbox = PytzBox.PytzBox(password=password, host=__addon__.getSetting("S_IP"), username=username)
 
             if self.__fb_phonebook is None:
                 self.__fb_phonebook = dict()
-                if __addon__.getSetting("AB_Fritzadress_all_books") == 'true':
-                    phonebook_list = self.__pytzbox.getPhonebookList()
-                    if not phonebook_list or len(phonebook_list) < 0:
-                        phonebook_list = [0]
-                    for phonebook_id in phonebook_list:
+                try:
+                    if __addon__.getSetting("AB_Fritzadress_all_books") == 'true':
+                        phonebook_list = self.__pytzbox.getPhonebookList()
+                        if not phonebook_list or len(phonebook_list) < 0:
+                            phonebook_list = [0]
+                        for phonebook_id in phonebook_list:
+                            self.__fb_phonebook.update(
+                                self.__pytzbox.getPhonebook(id=phonebook_id))
+                    else:
                         self.__fb_phonebook.update(
-                            self.__pytzbox.getPhonebook(id=phonebook_id))
-                else:
-                    self.__fb_phonebook.update(
-                        self.__pytzbox.getPhonebook(id=int(__addon__.getSetting("AB_Fritzadress_id"))))
-                xbmc.log(u"loaded %d phone book entries" % len(self.__fb_phonebook))
+                            self.__pytzbox.getPhonebook(id=int(__addon__.getSetting("AB_Fritzadress_id"))))
+                    xbmc.log(u"loaded %d phone book entries" % len(self.__fb_phonebook))
+                except Exception, e:
+                    self.show_notification(_('fritzbox phonebook failed'), str(e))
 
         if __addon__.getSetting("AB_GoogleLookup") == 'true':
             self.__gdata_request = SimpleGdataRequest.SimpleGdataRequest()
@@ -376,6 +383,7 @@ class FritzCallMonitor():
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s.connect((ip, 1012))
+            self.show_notification(_('fritzbox connected'), "")
         except Exception, e:
             self.show_notification(_('fritzbox unreachable'), _('could not connect to fritzbox (%s).') % str(e))
         else:

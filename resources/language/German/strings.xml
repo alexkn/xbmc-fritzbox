@@ -25,6 +25,7 @@
     <string id="30310">Benutze Klicktel.de Telefonbuch Rückwärtssuche</string>
     <string id="30311">Benutze Ordner zur Bildersuche</string>
     <string id="30312">Pfad zum Bilderordner</string>
+	<string id="30313">Anmelde Nutzer</string>
 
 	<!-- Actions -->
 	<string id="30400">Wiedergabe bei eingehenden Anrufen pausieren</string>
@@ -46,6 +47,8 @@
     <string id="31008">Fritzbox nicht erreichbar</string>
     <string id="31009">Konnte keine Verbindung zur Fritzbox herstellen (%s)</string>
     <string id="31010">Unbekannt</string>
+    <string id="31011">Fritzbox verbunden</string>
+    <string id="31011">Fritzbox Telefonbuch Fehler</string>
 
 </strings>
 

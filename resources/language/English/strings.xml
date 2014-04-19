@@ -25,6 +25,7 @@
     <string id="30310">Use Klicktel Phonebook inverse search</string>
     <string id="30311">Use Directory for picture lookup</string>
     <string id="30312">Path to picture directory</string>
+	<string id="30313">Login User</string>
 	
 	<!-- Actions -->
 	<string id="30400">Pause playback on incoming calls</string>
@@ -46,6 +47,8 @@
     <string id="31008">Fritzbox unreachable</string>
     <string id="31009">Could not connect to Fritzbox (%s).</string>
     <string id="31010">Unknown</string>
+    <string id="31011">Fritzbox connected</string>
+    <string id="31011">Fritzbox Phonebook Error</string>
 
 	
 </strings>

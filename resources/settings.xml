@@ -9,7 +9,8 @@
   </category>
   <category label="30002">
     <setting id="AB_Fritzadress" type="bool" label="30300" default="false" />
-    <setting id="AB_FritzboxPassword" type="text" option="hidden" label="30301" visible="eq(-1,true)" enable="eq(-1,true)" default="" />
+	<setting id="AB_FritzboxUsername" type="text" label="30313" visible="eq(-1,true)" enable="eq(-1,true)" default="" />
+    <setting id="AB_FritzboxPassword" type="text" option="hidden" label="30301" visible="eq(-2,true)" enable="eq(-2,true)" default="" />
     <setting id="AB_Fritzadress_all_books" type="bool" label="30302" default="true" visible="eq(-1,true)" enable="eq(-1,true)" />
     <setting id="AB_Fritzadress_id" type="number" label="30303"  default="0" enable="eq(-1,false)" visible="eq(-1,false)" />
     <setting id="AB_GoogleLookup" type="bool" label="30304" default="false" visible="eq(-4,true)" enable="eq(-4,true)"/>
