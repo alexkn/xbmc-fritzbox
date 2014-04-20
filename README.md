@@ -14,7 +14,7 @@ XBMC FritzBox Callmonitor
 
 * FritzBox: 6330, 7270, 7370
    * please report to me if your unlisted FritzBox did work :)
-* XBMC: Eden & Frodo
+* XBMC: Frodo & Gotham
 
 #### Install:
 
